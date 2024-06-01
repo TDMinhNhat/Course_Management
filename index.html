@@ -8,10 +8,11 @@
     <title>Trung Tâm Khoá Học ABC</title>
     <link rel="stylesheet" href="./style/main.css">
     <link rel="stylesheet" href="./style/header.css">
+    <link rel="stylesheet" href="./style/home_body.css">
 </head>
-<body>
+<body class="k-bg-black">
     <!-- Header Website -->
-    <header class="k-i-max-width k-bg-warning">
+    <header class="k-i-max-width k-bg-warning fixed-top">
         <ul class="k-display-flex k-justify-content-around k-align-items-center">
             <li class="k-menu-item">
                 <a href="#">
@@ -46,8 +47,29 @@
     </header>
     
     <!-- Body Website -->
-    <div>
+    <div id="body" class="k-i-max-width k-i-max-height">
         
+        <!-- Slider Website -->
+        <div id="slider" class="k-display-flex k-justify-content-center">
+            <div style="height: 700px; width: 1600px">
+                <div class="slide-content k-display-flex k-justify-content-center k-align-items-center" data-role="page">
+                    <img src="./img/slide/slide_1.png" width="100%" height="100%">
+                </div>
+                <div class="slide-content k-display-flex k-justify-content-center k-align-items-center" data-role="page">
+                    <img src="./img/slide/slide_2.png" width="100%" height="100%">
+                </div>
+                <div class="slide-content k-display-flex k-justify-content-center k-align-items-center" data-role="page">
+                    <img src="./img/slide/slide_3.png" width="100%" height="100%">
+                </div>
+                <div class="slide-content k-display-flex k-justify-content-center k-align-items-center" data-role="page">
+                    <img src="./img/slide/slide_4.png" width="100%" height="100%">
+                </div>
+                <div class="slide-content k-display-flex k-justify-content-center k-align-items-center" data-role="page">
+                    <img src="./img/slide/slide_5.png" width="100%" height="100%">
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <!-- Footer website -->
@@ -60,4 +82,5 @@
 <script src="./lib/kendoui/js/kendo.all.min.js"></script>
 <script src="./lib/kendoui/license/kendo-ui-license.js"></script>
 <script src="./src/header.js"></script>
+<script src="./src/home/body.js"></script>
 </html>

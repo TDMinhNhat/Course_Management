@@ -1,0 +1,26 @@
+footer {
+    margin-top: 100px;
+
+    div {
+        margin-top: 10px;
+        width: 30%;
+
+        #home-introduce {
+            width: 70%;
+            margin-top: 20px;
+        }
+
+        #home-link {
+            width: 100%;
+            font-size: 40px;
+
+            a + a {
+                margin-left: 20px;
+            }
+        }
+
+        #home-copyright {
+            width: 70%;
+        }
+    }
+}

@@ -39,14 +39,34 @@
                     </a>
                 </span>
             </li>
-            <li class="k-menu-item">
+            <li id="login" class="k-menu-item">
                 <span class="k-text-center k-font-bold k-display-flex k-align-items-center">
-                    <span>
+                    <a href="#">
                         <img src="./img/user.png" style="margin-right: 10px;" width="40px" height="40px">
                         ĐĂNG NHẬP
-                    </span>
+                    </a>
                 </span>
             </li>
+            <div id="login-dialog" class="k-hidden w-100">
+                <div id="form" class="w-100">
+                    <div id="login-notification" class="k-text-center k-text-error w-100"></div>
+                    <div class="k-display-flex k-align-items-start k-flex-col">
+                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Tên tài khoản:</label>
+                        <input type="text" name="username" id="username" required/>
+                    </div>
+                    <div class="k-display-flex k-align-items-start k-flex-col" style="margin-top: 30px;">
+                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Mật khẩu:</label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                    <div id="login-save-password" style="margin-top: 30px">
+                        <input></input>
+                    </div>
+                    <div class="k-display-flex justify-content-center">
+                        <a href="" style="font-size: 20px; margin-right: 10px;" class="k-text-error">Quên mật khẩu</a>
+                        <a href="" style="font-size: 20px; margin-right: 10px;" class="k-text-primary">Đăng ký tài khoản</a>
+                    </div>
+                </div>
+            </div>
         </ul>
     </header>
 
@@ -103,7 +123,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- Footer website -->

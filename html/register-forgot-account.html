@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/footer.css">
 </head>
-<body class="k-bg-black k-display-flex k-flex-col k-justify-content-between h-100">
+<body class="k-bg-black k-display-flex k-flex-col k-align-items-center k-justify-content-between h-100">
     <!-- Header website -->
     <header class="k-i-max-width k-bg-warning fixed-top">
         <ul class="k-display-flex k-justify-content-around k-align-items-center">
@@ -67,8 +67,20 @@
     </header>
 
     <!-- Content website -->
-    <div>
-
+    <div class="w-75 k-display-flex justify-content-center k-bg-light" style="margin-top: 100px;">
+        <div id="register-forgot-tab" class="w-75 k-bg-light p-5">
+            <ul>
+                <li>Quên Mật Khẩu</li>
+                <li>Đăng Ký Tài Khoản</li>
+            </ul>
+            <div>
+                <div id="forgot-form-message" class="w-100 k-text-center"></div>
+                <form id="forgot-form" style="margin-top: 10px;"></form>
+            </div>
+            <div>
+                
+            </div>
+        </div>
     </div>
 
     <!-- Footer website -->
@@ -113,4 +125,5 @@
 <script src="../lib/kendoui/js/kendo.all.min.js"></script>
 <script src="../lib/kendoui/license/kendo-ui-license.js"></script>
 <script src="../src/header.js"></script>
+<script src="../src/register-forgot-body.js"></script>
 </html>

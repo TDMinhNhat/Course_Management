@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100 w-100">
+<html lang="en" class="w-100 h-100">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../lib/kendoui/styles/material-sky.css">
     <link rel="stylesheet" href="../lib/bootstrap-5.2.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="../lib/fontawesome-free-6.5.2-web/css/all.css">
-    <title>ABC Academy - Xử Lý Vấn Đề Tài Khoản</title>
+    <title>ABC Academy - Danh Sách Các Khoá Học</title>
     <link rel="stylesheet" href="../style/main.css">
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/footer.css">
 </head>
+
 <body class="k-bg-black k-display-flex k-flex-col k-align-items-center k-justify-content-between h-100">
     <!-- Header website -->
     <header class="k-i-max-width k-bg-warning fixed-top">
@@ -48,46 +50,30 @@
                 <div id="form" class="w-100">
                     <div id="login-notification" class="k-text-center k-text-error w-100"></div>
                     <div class="k-display-flex k-align-items-start k-flex-col">
-                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Tên tài khoản:</label>
-                        <input type="text" name="username" id="username" required/>
+                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Tên tài
+                            khoản:</label>
+                        <input type="text" name="username" id="username" required />
                     </div>
                     <div class="k-display-flex k-align-items-start k-flex-col" style="margin-top: 30px;">
-                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Mật khẩu:</label>
+                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Mật
+                            khẩu:</label>
                         <input type="password" name="password" id="password" required>
                     </div>
                     <div id="login-save-password" style="margin-top: 30px">
                         <input></input>
                     </div>
                     <div class="k-display-flex justify-content-center">
-                        <a href="register-forgot-account.html" style="font-size: 20px; margin-right: 10px;" class="k-text-primary">Gặp vấn đề đăng nhập?</a>
+                        <a href="register-forgot-account.html" style="font-size: 20px; margin-right: 10px;"
+                            class="k-text-primary">Gặp vấn đề đăng nhập?</a>
                     </div>
                 </div>
             </div>
         </ul>
     </header>
 
-    <!-- Content website -->
-    <div class="w-75 k-display-flex k-flex-col align-items-center justify-content-center k-bg-light" style="margin-top: 100px;">
-        <div>
-            <h1 class="k-text-primary k-font-bold" style="margin-top: 10px;">VẤN ĐỀ VỀ TÀI KHOẢN</h1>
-        </div>
-        <div id="register-forgot-tab" class="w-75 k-bg-light p-5">
-            <ul>
-                <li>Quên Mật Khẩu</li>
-                <li>Đăng Ký Tài Khoản</li>
-            </ul>
-            <!-- Forgot Password -->
-            <div>
-                <div id="forgot-form-message" class="w-100 k-text-center"></div>
-                <form id="forgot-form" style="margin-top: 10px;"></form>
-            </div>
-
-            <!-- Create a new account -->
-            <div>
-                <div id="register-form-message" class="w-100 k-text-center"></div>
-                <form id="register-form" style="margin-top: 10px;"></form>
-            </div>
-        </div>
+    <!-- Content Website -->
+    <div>
+        
     </div>
 
     <!-- Footer website -->
@@ -132,5 +118,5 @@
 <script src="../lib/kendoui/js/kendo.all.min.js"></script>
 <script src="../lib/kendoui/license/kendo-ui-license.js"></script>
 <script src="../src/header.js"></script>
-<script src="../src/register-forgot-body.js"></script>
+
 </html>

@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,11 +53,81 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClassRoom.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Course.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CourseManagementModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollCourse.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Person.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skill.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherInfo.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherSkill.cs">
+      <DependentUpon>CourseManagementModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="CourseManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CourseManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CourseManagementModel.edmx.diagram">
+      <DependentUpon>CourseManagementModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CourseManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CourseManagementModel.edmx</DependentUpon>
+      <LastGenOutput>CourseManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CourseManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CourseManagementModel.edmx</DependentUpon>
+      <LastGenOutput>CourseManagementModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

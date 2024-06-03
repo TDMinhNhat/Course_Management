@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="45c6903718c44d2dba7481fabb3684ff" Name="Diagram1">
+        <EntityTypeShape EntityType="CourseManagementModel.Category" Width="1.5" PointX="1.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.ClassRoom" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.Course" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.EnrollCourse" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.Person" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.Skill" Width="1.5" PointX="3.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.TeacherInfo" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CourseManagementModel.TeacherSkill" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="CourseManagementModel.FK_CateID_Course_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_CateParent_Category_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_ClassID_EnrollCourse_ClassRoom" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_CourseID_ClassRoom_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_TeacherID_ClassRoom_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_StudentID_EnrollCourse_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_TeacherID_TeacherInfo_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_TeacherID_TeacherSkill_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_SkillID_TeacherSkill_Skill" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

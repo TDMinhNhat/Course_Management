@@ -23,6 +23,7 @@
         <AssociationConnector Association="CourseManagementModel.FK_TeacherID_TeacherInfo_Person" ManuallyRouted="false" />
         <AssociationConnector Association="CourseManagementModel.FK_TeacherID_TeacherSkill_Person" ManuallyRouted="false" />
         <AssociationConnector Association="CourseManagementModel.FK_SkillID_TeacherSkill_Skill" ManuallyRouted="false" />
+        <AssociationConnector Association="CourseManagementModel.FK_SkillParent_Skill_Skill" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

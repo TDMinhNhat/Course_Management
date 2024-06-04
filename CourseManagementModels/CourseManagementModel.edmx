@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CourseManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CourseManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CateID" />
@@ -37,6 +37,7 @@
           <Property Name="CateID" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="DateCreated" Type="date" />
           <Property Name="DateModifier" Type="date" />
+          <Property Name="Image" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="EnrollCourse">
           <Key>
@@ -71,6 +72,7 @@
           </Key>
           <Property Name="SkillID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SkillName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SkillParent" Type="bigint" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -156,6 +158,18 @@
             </Principal>
             <Dependent Role="TeacherSkill">
               <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkillParent_Skill_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="0..1" />
+          <End Role="Skill1" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="Skill1">
+              <PropertyRef Name="SkillParent" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -268,6 +282,10 @@
             <End Role="Skill" EntitySet="Skill" />
             <End Role="TeacherSkill" EntitySet="TeacherSkill" />
           </AssociationSet>
+          <AssociationSet Name="FK_SkillParent_Skill_Skill" Association="Self.FK_SkillParent_Skill_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Skill1" EntitySet="Skill" />
+          </AssociationSet>
           <AssociationSet Name="FK_StudentID_EnrollCourse_Person" Association="Self.FK_StudentID_EnrollCourse_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="EnrollCourse" EntitySet="EnrollCourse" />
@@ -285,8 +303,7 @@
             <End Role="TeacherSkill" EntitySet="TeacherSkill" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CourseManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -330,6 +347,7 @@
           <Property Name="DateModifier" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Category" Relationship="Self.FK_CateID_Course_Category" FromRole="Course" ToRole="Category" />
           <NavigationProperty Name="ClassRooms" Relationship="Self.FK_CourseID_ClassRoom_Course" FromRole="Course" ToRole="ClassRoom" />
+          <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EnrollCourse">
           <Key>
@@ -371,6 +389,9 @@
           <Property Name="SkillID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SkillName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="TeacherSkills" Relationship="Self.FK_SkillID_TeacherSkill_Skill" FromRole="Skill" ToRole="TeacherSkill" />
+          <Property Name="SkillParent" Type="Int64" />
+          <NavigationProperty Name="Skill1" Relationship="CourseManagementModel.FK_SkillParent_Skill_Skill" FromRole="Skill" ToRole="Skill1" />
+          <NavigationProperty Name="Skill2" Relationship="CourseManagementModel.FK_SkillParent_Skill_Skill" FromRole="Skill1" ToRole="Skill" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -586,6 +607,10 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK_SkillParent_Skill_Skill" Association="CourseManagementModel.FK_SkillParent_Skill_Skill">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="Skill1" EntitySet="Skills" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -598,6 +623,18 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <Association Name="FK_SkillParent_Skill_Skill">
+          <End Type="CourseManagementModel.Skill" Role="Skill" Multiplicity="0..1" />
+          <End Type="CourseManagementModel.Skill" Role="Skill1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="Skill1">
+              <PropertyRef Name="SkillParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -631,6 +668,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="CourseManagementModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
@@ -672,6 +710,7 @@
           <EntitySetMapping Name="Skills">
             <EntityTypeMapping TypeName="CourseManagementModel.Skill">
               <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="SkillParent" ColumnName="SkillParent" />
                 <ScalarProperty Name="SkillID" ColumnName="SkillID" />
                 <ScalarProperty Name="SkillName" ColumnName="SkillName" />
               </MappingFragment>

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CourseManagement_WebAPI.App_Start;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-
+using System.Web.Http.Cors;
 namespace CourseManagement_WebAPI
 {
     public static class WebApiConfig
@@ -19,6 +21,11 @@ namespace CourseManagement_WebAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.Add(new CustomerJsonFormatter());
+
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
         }
     }
 }

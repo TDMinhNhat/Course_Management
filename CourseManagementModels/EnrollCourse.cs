@@ -11,9 +11,8 @@ namespace CourseManagementModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
-    public partial class EnrollCourse : DbContext
+    
+    public partial class EnrollCourse
     {
         public string EnrollID { get; set; }
         public System.DateTime DateEnrolled { get; set; }

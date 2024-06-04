@@ -11,9 +11,8 @@ namespace CourseManagementModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
-    public partial class Course : DbContext
+    
+    public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Course()
@@ -27,6 +26,7 @@ namespace CourseManagementModels
         public string CateID { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateModifier { get; set; }
+        public string Image { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

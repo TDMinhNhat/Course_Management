@@ -11,9 +11,8 @@ namespace CourseManagementModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
-    public partial class Person : DbContext
+    
+    public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()

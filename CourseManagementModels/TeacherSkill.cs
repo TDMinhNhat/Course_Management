@@ -11,9 +11,8 @@ namespace CourseManagementModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
-    public partial class TeacherSkill : DbContext
+    
+    public partial class TeacherSkill
     {
         public string TeacherID { get; set; }
         public long SkillID { get; set; }

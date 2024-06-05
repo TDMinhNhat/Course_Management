@@ -1,3 +1,5 @@
+import personAPI from './api/person.js';
+
 $("header ul").kendoMenu({
     openOnClick: true
 })
@@ -37,6 +39,9 @@ $("#login-dialog").kendoDialog({
     content: kendo.template($("#login-dialog #form").html()),
     open: function () {
         $("#login-dialog").removeClass("k-hidden");
+        $("#login-notification").addClass("k-hidden");
+        $("#username").val("");
+        $("#password").val("");
     },
     close: function () {
         $("#login-dialog").addClass("k-hidden");
@@ -44,11 +49,19 @@ $("#login-dialog").kendoDialog({
     actions: [{
         text: "Đăng Nhập",
         primary: true,
-        action: function (e) {
-            if($("#username").val() !== "admin" || $("#password").val() !== "admin") {
-                $("#login-notification").text("Tài khoản hoặc mật khẩu của bạn không đúng!");
+        action: async function (e) {
+
+            if($("#username").val() === '' || $("#password").val() === '') { 
+                kendo.alert("Tên tài khoản hoặc mật khẩu không được để trống");
                 return false;
-            } 
+            }
+
+            const userNameValue = $("#username").val();
+            const passwordValue = $("#password").val();
+
+            const response = await personAPI.GetPersonByID('2406041001');
+            console.log(response)
+
             return true;
         }
     }, {

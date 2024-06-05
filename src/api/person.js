@@ -69,7 +69,7 @@ const personAPI = {
     CheckLogin: function(username, password) {
         return new Promise((resolve, reject) => { 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: `https://localhost:44399/api/Person/${username}/${password}`,
                 accept: "application/json",
                 contentType: "application/json",

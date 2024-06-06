@@ -1,13 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100 w-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../lib/kendoui/styles/material-sky.css">
+    <link rel="stylesheet" href="../lib/bootstrap-5.2.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/fontawesome-free-6.5.2-web/css/all.css">
     <title>ABC Academy - Thông tin tài khoản</title>
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/footer.css">
 </head>
-<body>
-    <div>
-        
+<body class="k-bg-black k-display-flex k-flex-col k-justify-content-between k-align-items-center h-100">
+
+    <!-- Content website -->
+    <div class="k-bg-light w-75 k-mt-10">
+        <div class="k-text-center">
+            <button id="btn-logout" class="p-2">
+                <a href="../index.html" class="k-text-error k-font-bold k-text-no-underline">Đăng Xuất</a>
+            </button>
+        </div>
     </div>
+
+     <!-- Footer website -->
+     <footer
+     class="k-i-max-width k-bg-light k-display-flex k-justify-content-evenly k-justify-content-center k-align-items-center">
+     <div>
+         <a id="home-img" href="#">
+             <img src="../img/logo.png" alt="Logo" width="200px" height="80px">
+         </a>
+         <div id="home-introduce">
+             ABC Academy là trang website học tập trực tuyến, nơi mà các bạn có thể học mọi lúc, mọi nơi, các bài học
+             luôn được
+             giảng dạy bởi các giảng viên chuyên nghiệp và nhiệt tình, những người có kinh nghiệm lâu năm trong nghề
+             nghiệp.
+         </div>
+     </div>
+     <div>
+         <div id="home-link" class="k-display-flex k-align-items-center">
+             <a href="https://facebook.com">
+                 <i class="fa-brands fa-facebook"></i>
+             </a>
+             <a href="https://youtube.com">
+                 <i class="fa-brands fa-youtube"></i>
+             </a>
+             <a href="https://twitter.com">
+                 <i class="fa-brands fa-twitter"></i>
+             </a>
+             <a href="https://linkedin.com">
+                 <i class="fa-brands fa-linkedin"></i>
+             </a>
+         </div>
+         <div id="home-copyright">
+             Copyright © 2024 Progress Software Corporation and/or its subsidiaries or affiliates.
+             All Rights Reserved.
+         </div>
+     </div>
+ </footer>
 </body>
+<script src="../lib/jquery/jquery-3.7.1.min.js"></script>
+<script src="../lib/bootstrap-5.2.3-dist/js/bootstrap.js"></script>
+<script src="../lib/fontawesome-free-6.5.2-web/js/all.js"></script>
+<script src="../lib/kendoui/js/kendo.all.min.js"></script>
+<script src="../lib/kendoui/license/kendo-ui-license.js"></script>
+<script src="../src/setting-account.js"></script>
 </html>

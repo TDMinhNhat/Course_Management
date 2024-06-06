@@ -91,7 +91,6 @@ $("#login-dialog").kendoDialog({
 });
 
 if(localStorage.getItem("username") != null) {
-
     const data = JSON.parse(localStorage.getItem("username"));
 
     $("#login span a").html(
@@ -99,6 +98,17 @@ if(localStorage.getItem("username") != null) {
         ${data.PerName}`
     ).attr("href", "./html/setting-account.html");
     $("#login").off('click')
+
+    if(data.Role == 2) {
+        $("#course span a").html(`<img src="./img/course.png" style="margin-right: 10px;" width="40px" height="40px">
+        LỊCH DẠY`).attr("href", "./html/teaching-schedule.html")
+    } else if(data.Role == 3) {
+        $("#course span a").html(`<img src="./img/course.png" style="margin-right: 10px;" width="40px" height="40px">
+        QUẢN LÝ KHOÁ HỌC`).attr("href", "./html/course-management.html")
+    } else {
+        $("#course span a").html(`<img src="./img/course.png" style="margin-right: 10px;" width="40px" height="40px">
+        KHOÁ HỌC`).attr("href", "./html/course.html")
+    }
 } else {
     $("#login").on('click', function (index, value) {
         $("#login-dialog").data("kendoDialog").open();

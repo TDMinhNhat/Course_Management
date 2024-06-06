@@ -82,7 +82,7 @@ const personAPI = {
             });
         }).then(
             success => success,
-            err => 'Something wrong when checking the login'
+            err => null
         );
     }
 }

@@ -50,7 +50,6 @@ $("#login-dialog").kendoDialog({
         text: "Đăng Nhập",
         primary: true,
         action: async function (e) {
-
             if($("#username").val() === '' || $("#password").val() === '') { 
                 kendo.alert("Tên tài khoản hoặc mật khẩu không được để trống");
                 return false;
@@ -59,10 +58,21 @@ $("#login-dialog").kendoDialog({
             const userNameValue = $("#username").val();
             const passwordValue = $("#password").val();
 
-            const response = await personAPI.GetPersonByID('2406041001');
-            console.log(response)
+            const response = await personAPI.CheckLogin(userNameValue, passwordValue);
+            if(response != null) {
+                $("#login span a").html(
+                    `<img src="${response.Image == null ? './img/user.png' : response.Image}" style="margin-right: 10px;" width="40px" height="40px">
+                    ${response.PerName}`
+                ).attr("href", "./html/setting-account.html");
+                $("#login").off('click')
 
-            return true;
+                localStorage.setItem("username", JSON.stringify(response));
+
+                return true;
+            } else {
+                kendo.alert("Đăng nhập thất bại, tên tài khoản hoặc mật khẩu không đúng");
+                return false;
+            }
         }
     }, {
         text: "Huỷ Bỏ",
@@ -80,6 +90,17 @@ $("#login-dialog").kendoDialog({
     }
 });
 
-$("#login").on('click', function (index, value) {
-    $("#login-dialog").data("kendoDialog").open();
-});
+if(localStorage.getItem("username") != null) {
+
+    const data = JSON.parse(localStorage.getItem("username"));
+
+    $("#login span a").html(
+        `<img src="${data.Image == null ? './img/user.png' : data.Image}" style="margin-right: 10px;" width="40px" height="40px">
+        ${data.PerName}`
+    ).attr("href", "./html/setting-account.html");
+    $("#login").off('click')
+} else {
+    $("#login").on('click', function (index, value) {
+        $("#login-dialog").data("kendoDialog").open();
+    });
+}

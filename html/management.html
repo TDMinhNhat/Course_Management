@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../style/main.css">
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/management.css">
 </head>
 
 <body class="k-bg-black k-display-flex k-flex-col k-align-items-center k-justify-content-between h-100">
@@ -72,19 +73,148 @@
     </header>
 
     <!-- Content Website -->
-    <div class="k-display-flex k-flex-col k-align-items-center k-justify-content-between w-75 k-bg-light" style="margin-top: 5%;">
+    <div id="content" class="k-display-flex k-flex-col k-align-items-center k-justify-content-between k-bg-light" style="margin-top: 5%; width: 90%;">
         <div class="k-text-center">
             <h1>Quản Lý Website</h1>
         </div>
-        <div class="w-100 k-display-flex k-justify-content-around k-align-items-center">
-            <div class="k-text-center k-bg-success">
-                <a href="./manager/user.html" class="k-text-no-underline k-text-light">Người Dùng</a>
+        <div id="tab-management" class="w-100 k-display-flex k-justify-content-around k-align-items-center">
+            <ul>
+                <li class="k-font-bold k-font-size-lg">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Quản Lý Người Dùng</span>
+                </li>
+                <li class="k-font-bold k-font-size-lg">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Quản Lý Danh Mục</span>
+                </li>
+                <li class="k-font-bold k-font-size-lg">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Quản Lý Môn Học</span>
+                </li>
+                <li class="k-font-bold k-font-size-lg">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Quản Lý Khoá Học</span>
+                </li>
+            </ul>
+
+            <!-- Menu Content Quản Lý Người Dùng -->
+            <div class="w-100"> 
+                
+                <!-- Control -->
+                <div id="control-area" class="w-100 k-display-flex"> 
+                    <div style="margin-left: 10px;">
+                        <button id="btn-remove-person">
+                            <span class="k-text-light">Xoá Người Dùng</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- List Content-->
+                <div id="table-person-area" style="margin-top: 10px;">
+                    <table id="table-person">
+                        <thread>
+                        </thread>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-            <div class="k-text-center k-bg-success">
-                <a href="./manager/subject.html" class="k-text-no-underline k-text-light">Môn Học</a>
+
+            <!-- Menu Content Quản Lý Danh Mục-->
+            <div class="w-100"> 
+                
+                <!-- Control -->
+                <div id="control-area" class="w-100 k-display-flex"> 
+                    <div>
+                        <button id="btn-add-category">
+                            <span class="k-text-light">Thêm Danh Mục</span>
+                        </button>
+                        <div id="dialog-add-category" class="k-hidden">
+                            <form>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <button id="btn-remove-category">
+                            <span class="k-text-light">Xoá Danh Mục</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- List Content-->
+                <div id="table-category-area" style="margin-top: 10px;">
+                    <table id="table-category">
+                        <thread>
+                        </thread>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-            <div class="k-text-center k-bg-success">
-                <a href="./manager/course.html" class="k-text-no-underline k-text-light">Khoá Học</a>
+
+            <!-- Menu Content Quản Lý Môn Học -->
+            <div class="w-100">
+                <!-- Control -->
+                <div id="control-area" class="w-100 k-display-flex"> 
+                    <div>
+                        <button id="btn-add-course">
+                            <span class="k-text-light">Thêm Môn Học</span>
+                        </button>
+                        <div id="dialog-add-course" class="k-hidden">
+                            <form>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <button id="btn-remove-course">
+                            <span class="k-text-light">Xoá Môn Học</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- List content -->
+                <div id="table-course-area" style="margin-top: 10px;">
+                    <table id="table-course">
+                        <thread>
+                        </thread>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Menu Content Quản Lý Khoá Học -->
+            <div class="w-100">
+                <!-- Control -->
+                <div id="control-area" class="w-100 k-display-flex"> 
+                    <div>
+                        <button id="btn-add-course-scheduled">
+                            <span class="k-text-light">Thêm Khoá Học</span>
+                        </button>
+                        <div id="dialog-add-course-scheduled" class="k-hidden">
+                            <form>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <button id="btn-remove-course-scheduled">
+                            <span class="k-text-light">Xoá Khoá Học</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- List content -->
+                <div id="table-course-scheduled-area" style="margin-top: 10px;">
+                    <table id="table-course-scheduled">
+                        <thread>
+                        </thread>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -130,6 +260,7 @@
 <script src="../lib/fontawesome-free-6.5.2-web/js/all.js"></script>
 <script src="../lib/kendoui/js/kendo.all.min.js"></script>
 <script src="../lib/kendoui/license/kendo-ui-license.js"></script>
+<script type="module" src="../src/management.js"></script>
 <script type="module" src="../src/header.js"></script>
 
 </html>

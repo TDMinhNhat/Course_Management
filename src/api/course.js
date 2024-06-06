@@ -2,7 +2,7 @@
 const courseAPI = {
 
     // Get all courses
-    GetCourses: function() {
+    GetAll: function() {
         return new Promise((resolve, reject) => { 
             $.ajax({
                 type: "GET",

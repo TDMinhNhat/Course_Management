@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="w-100 h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../lib/kendoui/styles/material-sky.css">
+    <link rel="stylesheet" href="../lib/bootstrap-5.2.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/fontawesome-free-6.5.2-web/css/all.css">
+    <title>ABC Academy - Danh Sách Các Khoá Học</title>
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/footer.css">
+</head>
+
+<body class="k-bg-black k-display-flex k-flex-col k-align-items-center k-justify-content-between h-100">
+    <!-- Header website -->
+    <header class="k-i-max-width k-bg-warning fixed-top">
+        <ul class="k-display-flex k-justify-content-around k-align-items-center">
+            <li class="k-menu-item">
+                <a href="../index.html">
+                    <img src="../img/logo.png" alt="TRANG CHỦ" width="200px" height="60px">
+                </a>
+            </li>
+            <li class="k-menu-item">
+                <span class="k-menu-link k-text-center k-font-bold">
+                    <a href="./course.html">
+                        <img src="../img/course.png" style="margin-right: 10px;" width="40px" height="40px">
+                        KHOÁ HỌC
+                    </a>
+                </span>
+            </li>
+            <li class="k-menu-item">
+                <span class="k-menu-link k-text-center k-font-bold">
+                    <a href="">
+                        <img src="../img/notice.png" style="margin-right: 10px;" width="40px" height="40px">
+                        THÔNG BÁO
+                    </a>
+                </span>
+            </li>
+            <li id="login" class="k-menu-item">
+                <span class="k-text-center k-font-bold k-display-flex k-align-items-center">
+                    <a href="#">
+                        <img src="../img/user.png" style="margin-right: 10px;" width="40px" height="40px">
+                        ĐĂNG NHẬP
+                    </a>
+                </span>
+            </li>
+            <div id="login-dialog" class="k-hidden w-100">
+                <div id="form" class="w-100">
+                    <div id="login-notification" class="k-text-center k-text-error w-100"></div>
+                    <div class="k-display-flex k-align-items-start k-flex-col">
+                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Tên tài
+                            khoản:</label>
+                        <input type="text" name="username" id="username" required />
+                    </div>
+                    <div class="k-display-flex k-align-items-start k-flex-col" style="margin-top: 30px;">
+                        <label class="form-label" style="font-size: 20px;"><span class="k-text-error">*</span> Mật
+                            khẩu:</label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                    <div id="login-save-password" style="margin-top: 30px">
+                        <input></input>
+                    </div>
+                    <div class="k-display-flex justify-content-center">
+                        <a href="register-forgot-account.html" style="font-size: 20px; margin-right: 10px;"
+                            class="k-text-primary">Gặp vấn đề đăng nhập?</a>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </header>
+
+    <!-- Content Website -->
+    <div>
+        <!-- Filter -->
+        <div>
+            
+        </div>
+
+        <!-- List courses -->
+        <div>
+            
+        </div>
+    </div>
+
+    <!-- Footer website -->
+    <footer
+        class="k-i-max-width k-bg-light k-display-flex k-justify-content-evenly k-justify-content-center k-align-items-center">
+        <div>
+            <a id="home-img" href="../index.html">
+                <img src="../img/logo.png" alt="Logo" width="200px" height="80px">
+            </a>
+            <div id="home-introduce">
+                ABC Academy là trang website học tập trực tuyến, nơi mà các bạn có thể học mọi lúc, mọi nơi, các bài học
+                luôn được
+                giảng dạy bởi các giảng viên chuyên nghiệp và nhiệt tình, những người có kinh nghiệm lâu năm trong nghề
+                nghiệp.
+            </div>
+        </div>
+        <div>
+            <div id="home-link" class="k-display-flex k-align-items-center">
+                <a href="https://facebook.com">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="https://youtube.com">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="https://twitter.com">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+                <a href="https://linkedin.com">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+            </div>
+            <div id="home-copyright">
+                Copyright © 2024 Progress Software Corporation and/or its subsidiaries or affiliates.
+                All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="../lib/jquery/jquery-3.7.1.min.js"></script>
+<script src="../lib/bootstrap-5.2.3-dist/js/bootstrap.js"></script>
+<script src="../lib/fontawesome-free-6.5.2-web/js/all.js"></script>
+<script src="../lib/kendoui/js/kendo.all.min.js"></script>
+<script src="../lib/kendoui/license/kendo-ui-license.js"></script>
+<script src="../src/header.js"></script>
+
+</html>

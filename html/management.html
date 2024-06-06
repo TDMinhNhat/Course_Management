@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../lib/kendoui/styles/material-sky.css">
     <link rel="stylesheet" href="../lib/bootstrap-5.2.3-dist/css/bootstrap.css">
     <link rel="stylesheet" href="../lib/fontawesome-free-6.5.2-web/css/all.css">
-    <title>ABC Academy - Danh Sách Các Khoá Học</title>
+    <title>ABC Academy - Quản Lý Khoá Học</title>
     <link rel="stylesheet" href="../style/main.css">
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/footer.css">
@@ -72,15 +72,20 @@
     </header>
 
     <!-- Content Website -->
-    <div>
-        <!-- Filter -->
-        <div>
-
+    <div class="k-display-flex k-flex-col k-align-items-center k-justify-content-between w-75 k-bg-light" style="margin-top: 5%;">
+        <div class="k-text-center">
+            <h1>Quản Lý Website</h1>
         </div>
-
-        <!-- List courses -->
-        <div>
-            
+        <div class="w-100 k-display-flex k-justify-content-around k-align-items-center">
+            <div class="k-text-center k-bg-success">
+                <a href="./manager/user.html" class="k-text-no-underline k-text-light">Người Dùng</a>
+            </div>
+            <div class="k-text-center k-bg-success">
+                <a href="./manager/subject.html" class="k-text-no-underline k-text-light">Môn Học</a>
+            </div>
+            <div class="k-text-center k-bg-success">
+                <a href="./manager/course.html" class="k-text-no-underline k-text-light">Khoá Học</a>
+            </div>
         </div>
     </div>
 
@@ -125,6 +130,6 @@
 <script src="../lib/fontawesome-free-6.5.2-web/js/all.js"></script>
 <script src="../lib/kendoui/js/kendo.all.min.js"></script>
 <script src="../lib/kendoui/license/kendo-ui-license.js"></script>
-<script src="../src/header.js"></script>
+<script type="module" src="../src/header.js"></script>
 
 </html>

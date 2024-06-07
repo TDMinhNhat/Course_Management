@@ -243,7 +243,7 @@ $("#dialog-add-course-scheduled form").kendoForm({
         { field: "DateStarted", label: "Ngày Bắt Đầu:", hint: "VD: 01/01/2021", validation: { required: true }},
         { field: "DateEnded", label: "Ngày Kết Thúc:", hint: "VD: 01/01/2021", validation: { required: true }},
         { field: "MaxStudent", label: "Số Lượng Tối Đa:", hint: "VD: 50", validation: { required: true }},
-        { field: "CourseID", label: "Mã Khoá Học:", hint: "VD: 2406071001", validation: { required: true }},
+        { field: "CourseIDReference", label: "Mã Khoá Học:", hint: "VD: 2406071001", validation: { required: true }},
         { field: "TeacherID", label: "Mã Giáo Viên:", hint: "VD: 2406071001", validation: { required: true }},
         { 
             field: "ClassDescription", 
@@ -266,7 +266,7 @@ $("#dialog-add-course-scheduled form").kendoForm({
             DateStarted: new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format($("#DateStarted").val()),
             DateEnded: new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format($("#DateEnded").val()),
             MaxStudent: $("#MaxStudent").val(),
-            CourseID: $("#CourseID").val(),
+            CourseID: $("#CourseIDReference").val(),
             TeacherID: $("#TeacherID").val(),
             ClassDescription: $("#ClassDescription").val(),
         }
@@ -277,16 +277,16 @@ $("#dialog-add-course-scheduled form").kendoForm({
 
 // Table Area
 // -- Person
-function getDataPerson() {
-    return $.map(personAPI.GetAll(), function (item, index) {
+async function getDataPerson() {
+    return $.map(await personAPI.GetAll(), function (item, index) {
         return {
             PerID: item.PerID,
             PerName: item.PerName,
-            PerEmail: item.PerEmail,
-            PerRole: item.PerRole,
-            PerStatus: item.PerStatus
+            PerEmail: item.Email,
+            PerRole: item.Role,
+            PerStatus: item.Status
         }
-    })
+    });
 }
 
 $("#table-person").kendoGrid({
@@ -304,12 +304,17 @@ $("#table-person").kendoGrid({
     search: {
         fields: ["PerID", "PerName", "PerEmail"]
     },
+    pageable: {
+        refresh: true,
+        pageSizes: true,
+        buttonCount: 3
+    },
     scrollable: true,
     sortable: {
         mode: "multiple"
     },
     dataSource: {
-        data: getDataPerson(),
+        data: await getDataPerson(),
         schema: {
             model: {
                 id: "PerID",
@@ -321,7 +326,8 @@ $("#table-person").kendoGrid({
                     PerStatus: { type: "string", editable: false }
                 }
             }
-        }
+        },
+        pageSize: 10
     },
     change: function (e) {
         var selectedRows = this.select();
@@ -331,8 +337,8 @@ $("#table-person").kendoGrid({
 })
 
 // -- Category
-function getDataCategories() {
-    return $.map(categoryAPI.GetAll(), function (item, index) {
+async function getDataCategories() {
+    return $.map(await categoryAPI.GetAll(), function (item, index) {
         return {
             CateID: item.CateID,
             CateName: item.CateName,
@@ -358,8 +364,13 @@ $("#table-category").kendoGrid({
     sortable: {
         mode: "multiple"
     },
+    pageable: {
+        refresh: true,
+        pageSizes: true,
+        buttonCount: 3
+    },
     dataSource: {
-        data: getDataSource(),
+        data: await getDataCategories(),
         schema: {
             model: {
                 id: "CateID",
@@ -378,8 +389,8 @@ $("#table-category").kendoGrid({
 })
 
 // -- Course
-function getDataSource() {
-    return $.map(courseAPI.GetAll(), function (item, index) {
+async function getDataCourses() {
+    return $.map(await courseAPI.GetAll(), function (item, index) {
         return {
             CourseID: item.CourseID,
             CourseName: item.CourseName,
@@ -409,7 +420,7 @@ $("#table-course").kendoGrid({
     },
     selectable: "row",
     dataSource: {
-        data: getDataSource(),
+        data: await getDataCourses(),
         schema: {
             model: {
                 id: "ID",
@@ -429,8 +440,8 @@ $("#table-course").kendoGrid({
 })
 
 // -- Course Scheduled
-function getDataCourseScheduled() {
-    return $.map(classroomAPI.GetAll(), function (item, index) {
+async function getDataCourseScheduled() {
+    return $.map(await classroomAPI.GetAll(), function (item, index) {
         return {
             ClassID: item.ClassID,
             ClassDescription: item.ClassDescription,
@@ -464,8 +475,13 @@ $("#table-course-scheduled").kendoGrid({
         mode: "multiple"
     },
     selectable: "row",
+    pageable: {
+        refresh: true,
+        pageSizes: true,
+        buttonCount: 3
+    },
     dataSource: {
-        data: getDataCourseScheduled(),
+        data: await getDataCourseScheduled(),
         schema: {
             model: {
                 id: "ClassID",

@@ -5,6 +5,62 @@ import classroomAPI from '../src/api/classroom.js'
 
 $("#tab-management").kendoTabStrip();
 
+/**
+ * Fetch API Get Datas
+ */
+// --- Person
+async function getDataPerson() {
+    return $.map(await personAPI.GetAll(), function (item, index) {
+        return {
+            PerID: item.PerID,
+            PerName: item.PerName,
+            PerEmail: item.Email,
+            PerRole: item.Role,
+            PerStatus: item.Status
+        }
+    });
+}
+
+// --- Category
+async function getDataCategories() {
+    return $.map(await categoryAPI.GetAll(), function (item, index) {
+        return {
+            CateID: item.CateID,
+            CateName: item.CateName,
+            CateParent: item.CateParent
+        }
+    })
+}
+
+// --- Course
+async function getDataCourses() {
+    return $.map(await courseAPI.GetAll(), function (item, index) {
+        return {
+            CourseID: item.CourseID,
+            CourseName: item.CourseName,
+            CourseDescription: item.CourseDescription,
+            DateCreated: item.DateCreated
+        };
+    });
+}
+
+// --- Course Scheduled
+async function getDataCourseScheduled() {
+    return $.map(await classroomAPI.GetAll(), function (item, index) {
+        return {
+            ClassID: item.ClassID,
+            ClassDescription: item.ClassDescription,
+            TypeStudy: item.TypeStudy,
+            DateStarted: item.DateStarted,
+            DateEnded: item.DateEnded,
+            MaxStudent: item.MaxStudent,
+            CourseID: item.CourseID,
+            TeacherID: item.TeacherID,
+            ClassStatus: item.ClassStatus
+        }
+    })
+}
+
 // Control Area
 // -- Person
 var btnRemovePerson = $("#control-area #btn-remove-person").kendoButton({
@@ -71,11 +127,12 @@ $("#dialog-add-category form").kendoForm({
             label: "Danh Mục Cha:", 
             editor: "DropDownList", 
             editorOptions: {
-                dataTextField: "text",
-                dataValueField: "id",
-                dataSource: [
-
-                ]
+                dataTextField: "CateName",
+                dataValueField: "CateID",
+                dataSource: await getDataCategories().then(data => data.map(item => { return {
+                    CateID: item.CateID,
+                    CateName: `${item.CateID} - ${item.CateName}`
+                }}))
             }
         }
     ],
@@ -137,18 +194,21 @@ $("#dialog-add-course form").kendoForm({
         validateOnBlur: true,
     },
     items: [
-        { field: "CourseID", label: "Mã Khoá Học:", hint: "VD: 2406071001", validation: { required: true } },
-        { field: "CourseName", label: "Tên Khoá Học:", hint: "VD: Lập trình ABC", validation: { required: true } },
+        { field: "CourseID", label: "Mã Môn Học:", hint: "VD: 2406071001", validation: { required: true } },
+        { field: "CourseName", label: "Tên Môn Học:", hint: "VD: Lập trình ABC", validation: { required: true } },
         {
             field: "CateIDChoose", 
             label: "Loại Danh Mục:", 
             editor: "DropDownList", 
             editorOptions: {
-                dataTextField: "text",
-                dataValueField: "id",
-                dataSource: [
-
-                ]
+                dataTextField: "CateName",
+                dataValueField: "CateID",
+                dataSource: await getDataCategories().then(data => data.map(item => {
+                    return {
+                        CateID: item.CateID,
+                        CateName: `${item.CateID} - ${item.CateName}`
+                    }
+                }))
             }
         },
         { field: "Image", label: "Ảnh", hint: 'VD: C:\\.. hoặc https:\\...', validation: { required: false }},
@@ -182,10 +242,11 @@ $("#dialog-add-course form").kendoForm({
 })
 
 // -- Course Scheduled
-var dialogAddCourse = $("#dialog-add-course-scheduled").kendoDialog({
+var dialogAddCourseScheduled = $("#dialog-add-scheduled").kendoDialog({
     title: "Thêm Khoá Học",
     width: "600px",
-    content: kendo.template($("#dialog-add-course-scheduled").html()),
+    height: "800px",
+    content: kendo.template($("#dialog-add-scheduled").html()),
     animation: {
         open: {
             effects: "fade:in"
@@ -196,18 +257,18 @@ var dialogAddCourse = $("#dialog-add-course-scheduled").kendoDialog({
     }
 }).data('kendoDialog');
 
-$("#control-area #btn-add-course-scheduled").kendoButton({
+$("#control-area #btn-add-scheduled").kendoButton({
     icon: "plus",
     rounded: "none",
     size: "large",
     themeColor: "success",
     fillMode: "solid",
     click: function () {
-        dialogAddCourse.open();
-        $("#dialog-add-course-scheduled").removeClass('k-hidden')
+        dialogAddCourseScheduled.open();
+        $("#dialog-add-scheduled").removeClass('k-hidden')
     }
 })
-var btnRemoveCourse = $("#control-area #btn-remove-course-scheduled").kendoButton({
+var btnRemoveCourse = $("#control-area #btn-remove-scheduled").kendoButton({
     icon: "minus",
     rounded: "none",
     size: "large",
@@ -219,7 +280,7 @@ var btnRemoveCourse = $("#control-area #btn-remove-course-scheduled").kendoButto
 }).data('kendoButton');
 btnRemoveCourse.enable(false);
 
-$("#dialog-add-course-scheduled form").kendoForm({
+$("#dialog-add-scheduled form").kendoForm({
     size: "large",
     orientation: "horizontal",
     validatable: {
@@ -277,18 +338,6 @@ $("#dialog-add-course-scheduled form").kendoForm({
 
 // Table Area
 // -- Person
-async function getDataPerson() {
-    return $.map(await personAPI.GetAll(), function (item, index) {
-        return {
-            PerID: item.PerID,
-            PerName: item.PerName,
-            PerEmail: item.Email,
-            PerRole: item.Role,
-            PerStatus: item.Status
-        }
-    });
-}
-
 $("#table-person").kendoGrid({
     height: "800px",
     columns: [
@@ -337,16 +386,6 @@ $("#table-person").kendoGrid({
 })
 
 // -- Category
-async function getDataCategories() {
-    return $.map(await categoryAPI.GetAll(), function (item, index) {
-        return {
-            CateID: item.CateID,
-            CateName: item.CateName,
-            CateParent: item.CateParent
-        }
-    })
-}
-
 $("#table-category").kendoGrid({
     height: "800px",
     columns:[
@@ -389,23 +428,12 @@ $("#table-category").kendoGrid({
 })
 
 // -- Course
-async function getDataCourses() {
-    return $.map(await courseAPI.GetAll(), function (item, index) {
-        return {
-            CourseID: item.CourseID,
-            CourseName: item.CourseName,
-            CourseDescription: item.CourseDescription,
-            DateCreated: item.DateCreated
-        };
-    });
-}
-
 $("#table-course").kendoGrid({
     height: "800px",
     columns: [
-        { field: "ID", title: "Mã Khoá Học", width: "15%" },
-        { field: "Name", title: "Tên Khoá Học", width: "30%" },
-        { field: "Description", title: "Mô Tả Khoá Học", width: "40%" },
+        { field: "ID", title: "Mã Môn Học", width: "15%" },
+        { field: "Name", title: "Tên Môn Học", width: "30%" },
+        { field: "Description", title: "Mô Tả Môn Học", width: "40%" },
         { field: "Date", title: "Ngày Thêm", width: "15%", format: "{dd/MM/yyyy}" }
     ],
     filterable: true,
@@ -440,23 +468,7 @@ $("#table-course").kendoGrid({
 })
 
 // -- Course Scheduled
-async function getDataCourseScheduled() {
-    return $.map(await classroomAPI.GetAll(), function (item, index) {
-        return {
-            ClassID: item.ClassID,
-            ClassDescription: item.ClassDescription,
-            TypeStudy: item.TypeStudy,
-            DateStarted: item.DateStarted,
-            DateEnded: item.DateEnded,
-            MaxStudent: item.MaxStudent,
-            CourseID: item.CourseID,
-            TeacherID: item.TeacherID,
-            ClassStatus: item.ClassStatus
-        }
-    })
-}
-
-$("#table-course-scheduled").kendoGrid({
+$("#table-scheduled").kendoGrid({
     height: "800px",
     columns: [
         { field: "ClassID", title: "Mã Lớp Học", width: "15%" },

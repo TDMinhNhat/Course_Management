@@ -6,6 +6,7 @@ const skillAPI = {
             $.ajax({
                 type: "GET",
                 url: "https://localhost:44399/api/Skill",
+                dataType: "jsonp",
                 accept: "application/json",
                 contentType: "application/json",
                 success: (message) => {
@@ -26,6 +27,7 @@ const skillAPI = {
             $.ajax({
                 type: "GET",
                 url: `https://localhost:44399/api/Skill/${id}`,
+                dataType: "jsonp",
                 accept: "application/json",
                 contentType: "application/json",
                 success: (message) => {
@@ -48,9 +50,9 @@ const skillAPI = {
                 type: "PUT",
                 url: "https://localhost:44399/api/Skill",
                 data: JSON.stringify(skill),
-                dataType: "application/json",
-                contentType: "application/json",
+                dataType: "jsonp",
                 accept: "application/json",
+                contentType: "application/json",
                 success: (message) => {
                     resolve(message)
                 },

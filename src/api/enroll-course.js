@@ -6,6 +6,7 @@ const enrollCouseAPI = {
             $.ajax({
                 type: "GET",
                 url: "https://localhost:44399/api/EnrollCourse",
+                dataType: "jsonp",
                 accept: "application/json",
                 contentType: "application/json",
                 success: (message) => {
@@ -27,6 +28,7 @@ const enrollCouseAPI = {
             $.ajax({
                 type: "GET",
                 url: `https://localhost:44399/api/EnrollCourse/${ID}`,
+                dataType: "jsonp",
                 accept: "application/json",
                 contentType: "application/json",
                 success: (message) => {
@@ -49,9 +51,9 @@ const enrollCouseAPI = {
                 type: "PUT",
                 url: "https://localhost:44399/api/EnrollCourse",
                 data: JSON.stringify(enrollCourse),
-                dataType: "application/json",
-                contentType: "application/json",
+                dataType: "jsonp",
                 accept: "application/json",
+                contentType: "application/json",
                 success: (message) => {
                     resolve(message);
                 },

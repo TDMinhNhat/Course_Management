@@ -17,8 +17,14 @@ const courseAPI = {
                 }
             });
         }).then(
-            success => success,
-            err => 'Something wrong when getting all courses'
+            success => {
+                console.log(success);
+                return success;
+            },
+            err => {
+                console.error(err);
+                return 'Something wrong when get all courses';
+            }
         );
     },
 
@@ -29,7 +35,7 @@ const courseAPI = {
                 type: "GET",
                 url: `https://localhost:44399/api/Course/${ID}`,
                 accept: "application/json",
-                dataType: "application/json",
+                contentType: "application/json",
                 success: function (response) {
                     resolve(response);
                 },

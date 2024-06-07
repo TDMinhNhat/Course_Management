@@ -6,6 +6,7 @@ const teacherSkillAPI = {
             $.ajax({
                 type: "GET",
                 url: "https://localhost:44399/api/TeacherSkill",
+                dataType: "jsonp",
                 accept: "application/json",
                 contentType: "application/json",
                 success: (message) => {
@@ -27,7 +28,8 @@ const teacherSkillAPI = {
             $.ajax({
                 type: "GET",
                 url: `https://localhost:44399/api/TeacherSkill/${id}`,
-                dataType: "application/json",
+                dataType: "jsonp",
+                accept: "application/json",
                 contentType: "application/json",
                 success: (message) => {
                     resolve(message)

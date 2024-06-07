@@ -28,7 +28,7 @@ const categoryAPI = {
                 type: "GET",
                 url: `https://localhost:44399/api/Category/${ID}`,
                 accept: "application/json",
-                dataType: "application/json",
+                contentType: "application/json",
                 success: function (response) {
                     resolve(response);
                 },
@@ -47,11 +47,11 @@ const categoryAPI = {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "PUT",
-                url: "https://localhost:44399/api/Category",
-                data: JSON.stringify(category),
-                dataType: "application/json",
-                contentType: "application/json",
+                url: "https://localhost:44399/api/Category?callback=result",
+                dataType: "json",
                 accept: "application/json",
+                contentType: "application/json",
+                data: JSON.stringify(category),
                 success: function (response) {
                     resolve(response);
                 },
@@ -60,9 +60,44 @@ const categoryAPI = {
                 }
             });
         }).then(
-            success => success,
-            err => 'Something wrong when adding a category'
+            success => {
+                console.log(success);
+                return true;
+            },
+            err => {
+                console.error(err);
+                return false;
+            }
         );
+    },
+
+    //Delete Category
+    DeleteCategory: function(cateID) {
+        console.log('Delete category')
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "DELETE",
+                url: `https://localhost:44399/api/Category/${cateID}`,
+                dataType: "json",
+                accept: "application/json",
+                contentType: "application/json",
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function (response) {
+                    reject(response);
+                }
+            });
+        }).then(
+            success => {
+                console.log(success);
+                return true;
+            },
+            err => {
+                console.error(err);
+                return false;
+            }
+        )
     }
 }
 

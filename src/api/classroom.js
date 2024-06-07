@@ -9,7 +9,6 @@ const classroomAPI = {
                 url: "https://localhost:44399/api/ClassRoom",
                 accept: "application/json",
                 contentType: "application/json",
-                accept: "application/json",
                 success: (message) => {
                     resolve(message);
                 },
@@ -52,8 +51,8 @@ const classroomAPI = {
                 url: "https://localhost:44399/api/ClassRoom",
                 data: JSON.stringify(classroom),
                 dataType: "application/json",
-                contentType: "application/json",
                 accept: "application/json",
+                contentType: "application/json",
                 success: (message) => {
                     resolve(message);
                 },
@@ -61,8 +60,14 @@ const classroomAPI = {
                     reject(message);
                 }
             }).then(
-                success => success,
-                err => 'Something wrong when adding the classroom'
+                success => {
+                    console.log(success);
+                    return true;
+                },
+                err => {
+                    console.error(err);
+                    return false;
+                }
             );
         })
     }

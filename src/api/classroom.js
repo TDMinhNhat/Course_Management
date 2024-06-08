@@ -70,6 +70,31 @@ const classroomAPI = {
                 }
             );
         })
+    },
+
+    //Delete a ClassRoom
+    DeleteClassRoom: function(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "DELETE",
+                url: `https://localhost:44399/api/ClassRoom/${id}`,
+                contentType: "application/json",
+                success: (message) => {
+                    resolve(message);
+                },
+                error: (message) => {
+                    reject(message);
+                }
+            });
+        }).then(
+            success => {
+                console.log(success);
+                return true;
+            },
+            err => {
+                console.error(err);
+            }
+        )
     }
 }
 

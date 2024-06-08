@@ -73,13 +73,10 @@ const categoryAPI = {
 
     //Delete Category
     DeleteCategory: function(cateID) {
-        console.log('Delete category')
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "DELETE",
                 url: `https://localhost:44399/api/Category/${cateID}`,
-                dataType: "json",
-                accept: "application/json",
                 contentType: "application/json",
                 success: function (response) {
                     resolve(response);

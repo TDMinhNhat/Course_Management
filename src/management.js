@@ -63,7 +63,7 @@ async function getDataCourseScheduled() {
 
 // Table Area
 // -- Person
-$("#table-person").kendoGrid({
+const personGrid = $("#table-person").kendoGrid({
     height: "800px",
     columns: [
         { field: "PerID", title: "Mã Người Dùng", width: "15%" },
@@ -108,10 +108,10 @@ $("#table-person").kendoGrid({
         btnRemovePerson.enable(selectedRows.length > 0);
     }
 
-})
+}).data('kendoGrid')
 
 // -- Category
-var categoryGrid = $("#table-category").kendoGrid({
+const categoryGrid = $("#table-category").kendoGrid({
     height: "800px",
     columns: [
         { field: "CateID", title: "Mã Danh Mục", width: "15%" },
@@ -150,7 +150,7 @@ var categoryGrid = $("#table-category").kendoGrid({
 }).data('kendoGrid');
 
 // -- Course
-$("#table-course").kendoGrid({
+const courseGrid = $("#table-course").kendoGrid({
     height: "800px",
     columns: [
         { field: "CourseID", title: "Mã Môn Học", width: "15%" },
@@ -192,10 +192,10 @@ $("#table-course").kendoGrid({
         var selectedRows = this.select();
         btnRemoveCourse.enable(selectedRows.length > 0);
     }
-})
+}).data('kendoGrid')
 
 // -- Course Scheduled
-$("#table-scheduled").kendoGrid({
+const courseScheduledGrid = $("#table-scheduled").kendoGrid({
     height: "800px",
     columns: [
         { field: "ClassID", title: "Mã Lớp Học", width: "15%" },
@@ -237,7 +237,7 @@ $("#table-scheduled").kendoGrid({
         var selectedRows = this.select();
         btnRemoveCourse.enable(selectedRows.length > 0);
     }
-})
+}).data('kendoGrid')
 
 // Control Area
 // -- Person
@@ -371,7 +371,18 @@ var btnRemoveCourse = $("#control-area #btn-remove-course").kendoButton({
     themeColor: "error",
     fillMode: "solid",
     click: function () {
+        if(courseGrid.select().length === 0)
+            {
+                kendo.alert('Bạn phải chọn một dòng để xoá!');
+                return;
+            }
 
+        const getCourseIDSelected = courseGrid.getSelectedData()[0].CourseID;
+        const result = courseAPI.DeleteCourse(getCourseIDSelected);
+        if(result)
+            kendo.alert('Xóa môn học thành công!');
+        else 
+            kendo.alert('Xóa môn học thất bại!');
     }
 }).data('kendoButton');
 
@@ -427,9 +438,9 @@ $("#dialog-add-course form").kendoForm({
 
         const result = courseAPI.AddCourse(data);
         if(result)
-            alert('Thêm môn học thành công!');
+            kendo.alert('Thêm môn học thành công!');
         else 
-            alert('Thêm môn học thất bại!');
+            kendo.alert('Thêm môn học thất bại!');
     }
 })
 
@@ -460,16 +471,25 @@ $("#control-area #btn-add-scheduled").kendoButton({
         $("#dialog-add-scheduled").removeClass('k-hidden')
     }
 })
-var btnRemoveCourseScheduled = $("#control-area #btn-remove-scheduled").kendoButton({
+$("#control-area #btn-remove-scheduled").kendoButton({
     icon: "minus",
     rounded: "none",
     size: "large",
     themeColor: "error",
     fillMode: "solid",
     click: function () {
+        if(courseScheduledGrid.select().length === 0)
+            kendo.alert('Bạn phải chọn một dòng để xoá!');
 
+        const getClassIDSelected = courseScheduledGrid.getSelectedData()[0].ClassID;
+        const result = classroomAPI.DeleteClassRoom(getClassIDSelected);
+        if(result) {
+            kendo.alert('Xóa lớp học thành công!');
+        } else {
+            kendo.alert('Xóa lớp học thất bại!');
+        }
     }
-}).data('kendoButton');
+});
 
 $("#dialog-add-scheduled form").kendoForm({
     size: "large",
@@ -492,8 +512,28 @@ $("#dialog-add-scheduled form").kendoForm({
                 ]
             }
         },
-        { field: "DateStarted", label: "Ngày Bắt Đầu:", hint: "VD: 01/01/2021", validation: { required: true } },
-        { field: "DateEnded", label: "Ngày Kết Thúc:", hint: "VD: 01/01/2021", validation: { required: true } },
+        { 
+            field: "DateStarted", 
+            label: "Ngày Bắt Đầu:", 
+            hint: "VD: 01/01/2021", 
+            editor: "DateTimePicker",
+            editorOptions: {
+                value: new Date(),
+                format: "yyyy-MM-dd"
+            },
+            validation: { required: true } 
+        },
+        { 
+            field: "DateEnded", 
+            label: "Ngày Kết Thúc:", 
+            hint: "VD: 01/01/2021", 
+            editor: "DateTimePicker",
+            editorOptions: { 
+                value: new Date(),
+                format: "yyyy-MM-dd"
+            },
+            validation: { required: true } 
+        },
         { field: "MaxStudent", label: "Số Lượng Tối Đa:", hint: "VD: 50", validation: { required: true } },
         { 
             field: "CourseIDReference",
@@ -546,21 +586,21 @@ $("#dialog-add-scheduled form").kendoForm({
 
         const data = {
             ClassID: $("#ClassID").val(),
-            TypeStudy: $("#TypeStudy").val(),
-            DateStarted: new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format($("#DateStarted").val()),
-            DateEnded: new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format($("#DateEnded").val()),
+            TypeStudy: $("#TypeStudy").val() === "Offline" ? 0 : 1,
+            DateStarted: $("#DateStarted").val(),
+            DateEnded: $("#DateEnded").val(),
             MaxStudent: $("#MaxStudent").val(),
             CourseID: $("#CourseIDReference").val(),
             TeacherID: $("#TeacherID").val(),
-            ClassDescription: $("#ClassDescription").val(),
+            ClassDescription: $("#ClassDescription").val() === '' || $("#ClassDescription").val() === null ? null : $("#ClassDescription").val(),
             ClassStatus: "Đang Mở Đăng Ký"
         }
 
         const result = classroomAPI.AddClassRoom(data);
         if(result) {
-            alert('Thêm lớp học thành công!');
+            kendo.alert('Thêm lớp học thành công!');
         } else {
-            alert('Thêm lớp học thất bại!');
+            kendo.alert('Thêm lớp học thất bại!');
         }
     }
 })

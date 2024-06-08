@@ -18,7 +18,6 @@ const courseAPI = {
             });
         }).then(
             success => {
-                console.log(success);
                 return success;
             },
             err => {
@@ -49,6 +48,7 @@ const courseAPI = {
         );
     },
 
+    // Add course
     AddCourse: function(course) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -69,6 +69,26 @@ const courseAPI = {
             success => success,
             err => 'Something wrong when adding course'
         )
+    },
+
+    // Delete course by through CourseID
+    DeleteCourse: function(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "DELETE",
+                url: `https://localhost:44399/api/Course/${id}`,
+                contentType: "application/json",
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function (response) {
+                    reject(response);
+                }
+            });
+        }).then(
+            success => success,
+            err => 'Something wrong when deleting course'
+        );
     }
 }
 

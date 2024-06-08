@@ -63,7 +63,7 @@ $("#login-dialog").kendoDialog({
                 $("#login span a").html(
                     `<img src="${response.Image == null ? './img/user.png' : response.Image}" style="margin-right: 10px;" width="40px" height="40px">
                     ${response.PerName}`
-                ).attr("href", "./html/setting-account.html");
+                ).attr("href", "./setting-account.html");
                 $("#login").off('click')
 
                 localStorage.setItem("username", JSON.stringify(response));
@@ -96,18 +96,18 @@ if(localStorage.getItem("username") != null) {
     $("#login span a").html(
         `<img src="${data.Image == null ? './img/user.png' : data.Image}" style="margin-right: 10px;" width="40px" height="40px">
         ${data.PerName}`
-    ).attr("href", "../html/setting-account.html");
+    ).attr("href", "./setting-account.html");
     $("#login").off('click')
 
     if(data.Role == 2) {
         $("#course span a").html(`<img src="./img/course.png" style="margin-right: 10px;" width="40px" height="40px">
-        LỊCH DẠY`).attr("href", "./html/teaching-schedule.html")
+        LỊCH DẠY`).attr("href", "./teaching-schedule.html")
     } else if(data.Role == 3) {
         $("#course span a").html(`<img src="./img/course.png" style="margin-right: 10px;" width="40px" height="40px">
-        QUẢN LÝ KHOÁ HỌC`).attr("href", "./html/management.html")
+        QUẢN LÝ KHOÁ HỌC`).attr("href", "./management.html")
     } else {
         $("#course span a").html(`<img src="./img/course.png" style="margin-right: 10px;" width="40px" height="40px">
-        KHOÁ HỌC`).attr("href", "./html/list-course.html")
+        KHOÁ HỌC`).attr("href", "./list-course.html")
     }
 } else {
     $("#login").on('click', function (index, value) {

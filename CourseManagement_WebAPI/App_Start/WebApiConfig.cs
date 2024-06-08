@@ -2,9 +2,11 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using WebApiContrib.Formatting.Jsonp;
 namespace CourseManagement_WebAPI
 {
     public static class WebApiConfig
@@ -22,10 +24,11 @@ namespace CourseManagement_WebAPI
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Formatters.Add(new CustomerJsonFormatter());
+            /*var jsonp = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
+            config.Formatters.Insert(0, jsonp);*/
 
-            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
+            config.SetCorsPolicyProviderFactory(new CorsPolicyFactory());
+            config.EnableCors();
         }
     }
 }

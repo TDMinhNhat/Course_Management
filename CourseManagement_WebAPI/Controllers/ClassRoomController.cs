@@ -3,10 +3,12 @@ using CourseManagementModels;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace CourseManagement_WebAPI.Controllers
 {
@@ -91,6 +93,25 @@ namespace CourseManagement_WebAPI.Controllers
                 };
 
                 return Request.CreateResponse(HttpStatusCode.OK, dto);
+            }
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteClassRoom([FromUri] string id)
+        {
+            using(CourseManagementEntities entities = new CourseManagementEntities())
+            {
+                ClassRoom target = entities.ClassRooms.FirstOrDefault(c => c.ClassID.Equals(id));
+
+                if(target is null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Can't find the classroom id = " + id);
+                }
+
+                target.ClassStatus = "Huỷ Lớp";
+                entities.ClassRooms.AddOrUpdate(target);
+                entities.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.OK, "Deleted Successfully!");
             }
         }
     }

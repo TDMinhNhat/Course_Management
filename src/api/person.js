@@ -94,7 +94,29 @@ const personAPI = {
             $.ajax({
                 type: "GET",
                 url: `https://localhost:44399/api/Person/${username}/${password}`,
-                dataType: "application/json",
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function (response) {
+                    reject(response);
+                }
+            });
+        }).then(
+            success => success,
+            err => {
+                console.error(err);
+                return null;
+            }
+        );
+    },
+
+    // Reset password by through forgot
+    RestPassword: function(email) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: `https://localhost:44399/api/Person/send-new-password/${email}`,
+                dataType: "json",
                 accept: "application/json",
                 contentType: "application/json",
                 success: function (response) {
@@ -106,8 +128,11 @@ const personAPI = {
             });
         }).then(
             success => success,
-            err => null
-        );
+            err => {
+                console.error(err);
+                return null;
+            }
+        )
     }
 }
 

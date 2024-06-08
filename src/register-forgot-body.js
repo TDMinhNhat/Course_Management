@@ -10,8 +10,15 @@ $("#forgot-form").kendoForm({
     ],
     submit: (e) => {
         e.preventDefault();
-        $("#forgot-form-message")
-            .html("<span class='k-text-success' style='font-size:18px;'>A new password has sent to your email! Check your email.</span>")
+        const email = $("#Email").val();
+        const result = personAPI.RestPassword(email);
+        if(result == null) {
+            $("#forgot-form-message")
+            .html("<span class='k-text-error' style='font-size:18px;'>Chúng tôi không thể tìm thấy email bạn đã sử dụng cho website này.</span>")
+        } else {
+            $("#forgot-form-message")
+            .html("<span class='k-text-success' style='font-size:18px;'>Mật khẩu mới đã được gửi tới email của bạn! Hãy kiểm tra email của bạn.</span>")
+        }
     }
 });
 

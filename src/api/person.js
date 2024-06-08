@@ -43,13 +43,35 @@ const personAPI = {
         );
     },
 
+    // Get max index of date
+    GetMaxIndex: function(dateIndex) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "GET",
+                url: `https://localhost:44399/api/Person/getMaxIndexID/${dateIndex}`,
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function (response) {
+                    reject(response);
+                }
+            });
+        }).then(
+            success => success,
+            err => {
+                console.log(err);
+                return null;
+            }
+        );
+    },
+
     // Add account (Register account)
     AddPerson: function (person) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "PUT",
                 url: "https://localhost:44399/api/Person",
-                dataType: "json",
+                dataType: "application/json",
                 accept: "application/json",
                 contentType: "application/json",
                 data: JSON.stringify(person),

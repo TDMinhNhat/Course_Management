@@ -96,7 +96,7 @@ if(localStorage.getItem("username") != null) {
     $("#login span a").html(
         `<img src="${data.Image == null ? './img/user.png' : data.Image}" style="margin-right: 10px;" width="40px" height="40px">
         ${data.PerName}`
-    ).attr("href", "./html/setting-account.html");
+    ).attr("href", "../html/setting-account.html");
     $("#login").off('click')
 
     if(data.Role == 2) {

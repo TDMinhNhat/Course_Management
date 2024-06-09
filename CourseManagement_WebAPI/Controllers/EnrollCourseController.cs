@@ -80,5 +80,27 @@ namespace CourseManagement_WebAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, dto);
             }
         }
+
+        [Route("api/EnrollCouse/amount-register-by-course")]
+        public HttpResponseMessage GetAmountRegisterByCourse([FromUri] string courseID)
+        {
+            using(CourseManagementEntities entities = new CourseManagementEntities())
+            {
+                List<ClassRoom> crs = entities.ClassRooms.Where(cr => cr.CourseID.Equals(courseID)).ToList();
+                int amounts = entities.EnrollCourses.Where(ec => crs.Contains(ec.ClassRoom)).Count();
+
+                return Request.CreateResponse(HttpStatusCode.OK, amounts);
+            }
+        }
+
+        [Route("api/EnrollCouse/amount-class-by-course")]
+        public HttpResponseMessage GetAmountClassByCourse([FromUri] string courseID)
+        {
+            using (CourseManagementEntities entities = new CourseManagementEntities())
+            {
+                int amounts = entities.ClassRooms.Where(cr => cr.CourseID.Equals(courseID)).ToList().Count();
+                return Request.CreateResponse(HttpStatusCode.OK, amounts);
+            }
+        }
     }
 }

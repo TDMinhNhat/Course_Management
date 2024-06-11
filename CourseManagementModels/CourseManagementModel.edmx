@@ -1,0 +1,795 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CourseManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CateID" />
+          </Key>
+          <Property Name="CateID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CateName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CateParent" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="ClassRoom">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClassDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="TypeStudy" Type="int" Nullable="false" />
+          <Property Name="DateStarted" Type="date" Nullable="false" />
+          <Property Name="DateEnded" Type="date" Nullable="false" />
+          <Property Name="MaxStudent" Type="int" Nullable="false" />
+          <Property Name="TeacherID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CourseID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClassStatus" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CourseDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="CateID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="DateModifier" Type="date" />
+          <Property Name="Image" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="EnrollCourse">
+          <Key>
+            <PropertyRef Name="EnrollID" />
+          </Key>
+          <Property Name="EnrollID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DateEnrolled" Type="date" Nullable="false" />
+          <Property Name="StudentID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClassID" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PerID" />
+          </Key>
+          <Property Name="PerID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="PerName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Sex" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="300" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="date" />
+          <Property Name="DateModifier" Type="date" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="SkillID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SkillParent" Type="bigint" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TeacherInfo">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TeacherLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CurrentJobName" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeacherSkill">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="TeacherID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="SkillID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateRecevied" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CateID_Course_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CateParent_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="CateParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassID_EnrollCourse_ClassRoom">
+          <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="1" />
+          <End Role="EnrollCourse" Type="Self.EnrollCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassRoom">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="EnrollCourse">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseID_ClassRoom_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="ClassRoom">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkillID_TeacherSkill_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="TeacherSkill" Type="Self.TeacherSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="TeacherSkill">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkillParent_Skill_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="0..1" />
+          <End Role="Skill1" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="Skill1">
+              <PropertyRef Name="SkillParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentID_EnrollCourse_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="EnrollCourse" Type="Self.EnrollCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="EnrollCourse">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherID_ClassRoom_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="ClassRoom">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherID_TeacherInfo_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="TeacherInfo" Type="Self.TeacherInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="TeacherInfo">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherID_TeacherSkill_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="TeacherSkill" Type="Self.TeacherSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="TeacherSkill">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CourseManagementModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassRoom" EntityType="Self.ClassRoom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnrollCourse" EntityType="Self.EnrollCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeacherInfo" EntityType="Self.TeacherInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeacherSkill" EntityType="Self.TeacherSkill" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CateID_Course_Category" Association="Self.FK_CateID_Course_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CateParent_Category_Category" Association="Self.FK_CateParent_Category_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassID_EnrollCourse_ClassRoom" Association="Self.FK_ClassID_EnrollCourse_ClassRoom">
+            <End Role="ClassRoom" EntitySet="ClassRoom" />
+            <End Role="EnrollCourse" EntitySet="EnrollCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseID_ClassRoom_Course" Association="Self.FK_CourseID_ClassRoom_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="ClassRoom" EntitySet="ClassRoom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkillID_TeacherSkill_Skill" Association="Self.FK_SkillID_TeacherSkill_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="TeacherSkill" EntitySet="TeacherSkill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkillParent_Skill_Skill" Association="Self.FK_SkillParent_Skill_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Skill1" EntitySet="Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentID_EnrollCourse_Person" Association="Self.FK_StudentID_EnrollCourse_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="EnrollCourse" EntitySet="EnrollCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherID_ClassRoom_Person" Association="Self.FK_TeacherID_ClassRoom_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="ClassRoom" EntitySet="ClassRoom" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherID_TeacherInfo_Person" Association="Self.FK_TeacherID_TeacherInfo_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="TeacherInfo" EntitySet="TeacherInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherID_TeacherSkill_Person" Association="Self.FK_TeacherID_TeacherSkill_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="TeacherSkill" EntitySet="TeacherSkill" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CourseManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CateID" />
+          </Key>
+          <Property Name="CateID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CateName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CateParent" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_CateID_Course_Category" FromRole="Category" ToRole="Course" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_CateParent_Category_Category" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="Self.FK_CateParent_Category_Category" FromRole="Category1" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="ClassRoom">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TypeStudy" Type="Int32" Nullable="false" />
+          <Property Name="DateStarted" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateEnded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MaxStudent" Type="Int32" Nullable="false" />
+          <Property Name="TeacherID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EnrollCourses" Relationship="Self.FK_ClassID_EnrollCourse_ClassRoom" FromRole="ClassRoom" ToRole="EnrollCourse" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_CourseID_ClassRoom_Course" FromRole="ClassRoom" ToRole="Course" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_TeacherID_ClassRoom_Person" FromRole="ClassRoom" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CateID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="DateModifier" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_CateID_Course_Category" FromRole="Course" ToRole="Category" />
+          <NavigationProperty Name="ClassRooms" Relationship="Self.FK_CourseID_ClassRoom_Course" FromRole="Course" ToRole="ClassRoom" />
+          <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EnrollCourse">
+          <Key>
+            <PropertyRef Name="EnrollID" />
+          </Key>
+          <Property Name="EnrollID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateEnrolled" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StudentID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ClassRoom" Relationship="Self.FK_ClassID_EnrollCourse_ClassRoom" FromRole="EnrollCourse" ToRole="ClassRoom" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_StudentID_EnrollCourse_Person" FromRole="EnrollCourse" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PerID" />
+          </Key>
+          <Property Name="PerID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sex" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="DateModifier" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="ClassRooms" Relationship="Self.FK_TeacherID_ClassRoom_Person" FromRole="Person" ToRole="ClassRoom" />
+          <NavigationProperty Name="EnrollCourses" Relationship="Self.FK_StudentID_EnrollCourse_Person" FromRole="Person" ToRole="EnrollCourse" />
+          <NavigationProperty Name="TeacherInfo" Relationship="Self.FK_TeacherID_TeacherInfo_Person" FromRole="Person" ToRole="TeacherInfo" />
+          <NavigationProperty Name="TeacherSkills" Relationship="Self.FK_TeacherID_TeacherSkill_Person" FromRole="Person" ToRole="TeacherSkill" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="SkillID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TeacherSkills" Relationship="Self.FK_SkillID_TeacherSkill_Skill" FromRole="Skill" ToRole="TeacherSkill" />
+          <Property Name="SkillParent" Type="Int64" />
+          <NavigationProperty Name="Skill1" Relationship="CourseManagementModel.FK_SkillParent_Skill_Skill" FromRole="Skill" ToRole="Skill1" />
+          <NavigationProperty Name="Skill2" Relationship="CourseManagementModel.FK_SkillParent_Skill_Skill" FromRole="Skill1" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TeacherInfo">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeacherLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CurrentJobName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_TeacherID_TeacherInfo_Person" FromRole="TeacherInfo" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="TeacherSkill">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="TeacherID" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SkillID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateRecevied" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_TeacherID_TeacherSkill_Person" FromRole="TeacherSkill" ToRole="Person" />
+          <NavigationProperty Name="Skill" Relationship="Self.FK_SkillID_TeacherSkill_Skill" FromRole="TeacherSkill" ToRole="Skill" />
+        </EntityType>
+        <Association Name="FK_CateID_Course_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CateParent_Category_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="CateParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassID_EnrollCourse_ClassRoom">
+          <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="1" />
+          <End Role="EnrollCourse" Type="Self.EnrollCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassRoom">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="EnrollCourse">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseID_ClassRoom_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="ClassRoom">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherID_ClassRoom_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="ClassRoom" Type="Self.ClassRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="ClassRoom">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentID_EnrollCourse_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="EnrollCourse" Type="Self.EnrollCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="EnrollCourse">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherID_TeacherInfo_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="TeacherInfo" Type="Self.TeacherInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="TeacherInfo">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherID_TeacherSkill_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="TeacherSkill" Type="Self.TeacherSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PerID" />
+            </Principal>
+            <Dependent Role="TeacherSkill">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SkillID_TeacherSkill_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="TeacherSkill" Type="Self.TeacherSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="TeacherSkill">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CourseManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="ClassRooms" EntityType="Self.ClassRoom" />
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="EnrollCourses" EntityType="Self.EnrollCourse" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TeacherInfoes" EntityType="Self.TeacherInfo" />
+          <EntitySet Name="TeacherSkills" EntityType="Self.TeacherSkill" />
+          <AssociationSet Name="FK_CateID_Course_Category" Association="Self.FK_CateID_Course_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CateParent_Category_Category" Association="Self.FK_CateParent_Category_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassID_EnrollCourse_ClassRoom" Association="Self.FK_ClassID_EnrollCourse_ClassRoom">
+            <End Role="ClassRoom" EntitySet="ClassRooms" />
+            <End Role="EnrollCourse" EntitySet="EnrollCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseID_ClassRoom_Course" Association="Self.FK_CourseID_ClassRoom_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="ClassRoom" EntitySet="ClassRooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherID_ClassRoom_Person" Association="Self.FK_TeacherID_ClassRoom_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="ClassRoom" EntitySet="ClassRooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentID_EnrollCourse_Person" Association="Self.FK_StudentID_EnrollCourse_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="EnrollCourse" EntitySet="EnrollCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherID_TeacherInfo_Person" Association="Self.FK_TeacherID_TeacherInfo_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="TeacherInfo" EntitySet="TeacherInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherID_TeacherSkill_Person" Association="Self.FK_TeacherID_TeacherSkill_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="TeacherSkill" EntitySet="TeacherSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SkillID_TeacherSkill_Skill" Association="Self.FK_SkillID_TeacherSkill_Skill">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="TeacherSkill" EntitySet="TeacherSkills" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CourseManagementModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CourseManagementModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK_SkillParent_Skill_Skill" Association="CourseManagementModel.FK_SkillParent_Skill_Skill">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="Skill1" EntitySet="Skills" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <Association Name="FK_SkillParent_Skill_Skill">
+          <End Type="CourseManagementModel.Skill" Role="Skill" Multiplicity="0..1" />
+          <End Type="CourseManagementModel.Skill" Role="Skill1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="Skill1">
+              <PropertyRef Name="SkillParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CourseManagementModelStoreContainer" CdmEntityContainer="CourseManagementEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="CourseManagementModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="CateName" ColumnName="CateName" />
+                <ScalarProperty Name="CateParent" ColumnName="CateParent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassRooms">
+            <EntityTypeMapping TypeName="CourseManagementModel.ClassRoom">
+              <MappingFragment StoreEntitySet="ClassRoom">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassDescription" ColumnName="ClassDescription" />
+                <ScalarProperty Name="TypeStudy" ColumnName="TypeStudy" />
+                <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
+                <ScalarProperty Name="DateEnded" ColumnName="DateEnded" />
+                <ScalarProperty Name="MaxStudent" ColumnName="MaxStudent" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ClassStatus" ColumnName="ClassStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="CourseManagementModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModifier" ColumnName="DateModifier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnrollCourses">
+            <EntityTypeMapping TypeName="CourseManagementModel.EnrollCourse">
+              <MappingFragment StoreEntitySet="EnrollCourse">
+                <ScalarProperty Name="EnrollID" ColumnName="EnrollID" />
+                <ScalarProperty Name="DateEnrolled" ColumnName="DateEnrolled" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="CourseManagementModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PerID" ColumnName="PerID" />
+                <ScalarProperty Name="PerName" ColumnName="PerName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModifier" ColumnName="DateModifier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="CourseManagementModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="SkillParent" ColumnName="SkillParent" />
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CourseManagementModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeacherInfoes">
+            <EntityTypeMapping TypeName="CourseManagementModel.TeacherInfo">
+              <MappingFragment StoreEntitySet="TeacherInfo">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="TeacherLevel" ColumnName="TeacherLevel" />
+                <ScalarProperty Name="CurrentJobName" ColumnName="CurrentJobName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeacherSkills">
+            <EntityTypeMapping TypeName="CourseManagementModel.TeacherSkill">
+              <MappingFragment StoreEntitySet="TeacherSkill">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+                <ScalarProperty Name="DateRecevied" ColumnName="DateRecevied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CourseManagementModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CourseManagementModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CourseManagementModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CourseManagementModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CourseManagementModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CourseManagementModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CourseManagementModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CourseManagementModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CourseManagementModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
